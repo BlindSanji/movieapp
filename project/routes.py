@@ -1,10 +1,11 @@
 from flask import render_template, url_for, flash, redirect, request
 from project import app, db, bcrypt
-from project.forms import RegistrationForm, LoginForm, UpdateAccountForm, SearchForm
+from project.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from project.models import User, Product
 from flask_login import login_user, current_user, logout_user, login_required
 from project.mysecrets import apikey
-import requests, json
+import requests
+import json
 
 url = "https://imdb8.p.rapidapi.com/auto-complete"
 
@@ -13,75 +14,56 @@ headers = {
     "X-RapidAPI-Host": "imdb8.p.rapidapi.com"
 }
 
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    search_form = SearchForm()
     with open('backup.json', 'r') as f:
         data = json.load(f)
 
-    if search_form.validate_on_submit():
-        search_query = search_form.search.data
-        return redirect(url_for("search", search_query=search_query))
+    return render_template('home.html', title="Home", data=data)
 
-    return render_template('home.html', title="Home", search_form=search_form, data=data)
 
-@app.route('/search/<search_query>', methods=['GET', 'POST'])
-def search(search_query):
-    search_form = SearchForm()
-
-    if search_form.validate_on_submit():
-        search_query = search_form.search.data
-        return redirect(url_for("search", search_query=search_query))
-
-    if search_query:
-        search_query = search_query.strip()
-        q = {"q": search_query}
-        response = requests.request("GET", url, headers=headers, params=q)
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    q = request.args.get('q')
+    if q:
+        response = requests.request("GET", url, headers=headers, params={"q": q})
         result = response.json()
+        print(result)
+    else:
+        return redirect('home')
 
-    return render_template('search.html', title=search_query, search_form=search_form, search_query=search_query, result=result)
+    return render_template('search.html', title=q, result=result)
+
 
 @app.route("/about")
 def about():
-    search_form = SearchForm()
+    return render_template("about.html")
 
-    if search_form.validate_on_submit():
-        search_query = search_form.search.data
-        return redirect(url_for("search", search_query=search_query))
-
-    return render_template("about.html", search_form=search_form)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
-    search_form = SearchForm()
-
-    if search_form.validate_on_submit():
-        search_query = search_form.search.data
-        return redirect(url_for("search", search_query=search_query))
 
     if current_user.is_authenticated:
         return redirect("home")
 
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-        user = User(username = form.username.data, email = form.email.data, password = hashed_password)
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode("utf-8")
+        user = User(username=form.username.data,
+                    email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash(f"Your account has been created! You are now able to log in")
+        flash("Your account has been created! You are now able to log in")
         return redirect(url_for("login"))
-    return render_template("register.html", title="Register", form=form, search_form=search_form)
+    return render_template("register.html", title="Register", form=form)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    search_form = SearchForm()
     form = LoginForm()
-
-    if search_form.validate_on_submit():
-        search_query = search_form.search.data
-        return redirect(url_for("search", search_query=search_query))
 
     if current_user.is_authenticated:
         return redirect("home")
@@ -95,7 +77,8 @@ def login():
         else:
             flash("Log in unsuccessful. Please check email and password", "class")
         return redirect(url_for("home"))
-    return render_template("login.html", title="Login", search_form=search_form, form=form)
+    return render_template("login.html", title="Login", form=form)
+
 
 @app.route("/logout")
 def logout():
@@ -106,13 +89,8 @@ def logout():
 @app.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-    search_form = SearchForm()
     form = UpdateAccountForm()
 
-    if search_form.validate_on_submit():
-        search_query = search_form.search.data
-        return redirect(url_for("search", search_query=search_query))
-        
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -122,7 +100,7 @@ def account():
     elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template("account.html", title="Account", form = form, search_form = search_form)
+    return render_template("account.html", title="Account", form=form)
 
 # @app.route('/<username>/likes')
 # @login_required

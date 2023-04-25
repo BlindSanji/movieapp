@@ -1,5 +1,4 @@
-input[type=text],
-input[type=password] {
+.userform-input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -25,6 +24,10 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #230046;
+}
+
+main {
+    margin-top: 0;
 }
 
 .form-container {
