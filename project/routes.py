@@ -30,7 +30,6 @@ def search():
     if q:
         response = requests.request("GET", url, headers=headers, params={"q": q})
         result = response.json()
-        print(result)
     else:
         return redirect('home')
 
