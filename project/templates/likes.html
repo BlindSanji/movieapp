@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Liked Items</h1>
+<ul>
+{% for item in likes %}
+    <li>{{ item }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

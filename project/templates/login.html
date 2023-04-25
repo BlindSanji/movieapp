@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='userform.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.email.label(class="userform-label") }}<br>
+                {% if form.email.errors %}
+                    {{ form.email(class="userform-input") }}
+                    <div>
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="userform-input") }}<br>
+                {% endif %}
+            </div>
+            <div>
+                {{ form.password.label(class="userform-label") }}<br>
+                {% if form.password.errors %}
+                    {{ form.password(class="userform-input") }}
+                    <div>
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="userform-input") }}<br>
+                {% endif %}
+            </div>
+            <div>
+                {{ form.remember.label(class="userform-label") }}
+                {{ form.remember(class="remember-me") }}
+            </div>
+            <div>
+                {{ form.submit(class="submit-btn") }}
+            </div>
+            <div class="link-container">
+                <a href="/">Forgot Password?</a><br>
+                <p>Need An Account? <a class="small-link" href='{{ url_for("register") }}'>Sign Up Now</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

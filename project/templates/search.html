@@ -1,0 +1,17 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+    {% if result %}
+        <div class="image-grid">
+            {% for item in result['d'] %}
+                {% if item.get('i') and item['i'].get('imageUrl') and item['i'].get('height') >= item['i'].get('width') %}
+                <div class="image-container">
+                    <img src="{{ item['i']['imageUrl'] }}" alt="{{ item['l'] }}">
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endblock %}
