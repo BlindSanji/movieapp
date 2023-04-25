@@ -4,12 +4,20 @@
     box-sizing: border-box;
 }
 
+main {
+    margin-top: 65px;
+}
+
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    background: #1b1b1b;
+    background-attachment: fixed;
+    background: linear-gradient(to bottom right, #2e2e2e, #0f0f0f);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200vh;
 }
 
 header {
@@ -38,6 +46,13 @@ nav {
     align-items: center;
 }
 
+.filter-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+}
+
 .right-nav {
     display: flex;
     justify-content: flex-end;
@@ -49,12 +64,29 @@ nav {
     color: #ffffff;
     margin-right: 20px;
     text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-link:hover {
+    color: #c2c2c2;
+}
+
+.filter-container a {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 24px;
+    color: #ffffff;
+    margin-right: 5px;
+    text-decoration: none;
 }
 
 .search-form {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 15px;
 }
 
 .search-input {
@@ -73,6 +105,11 @@ nav {
     border-radius: 0 5px 5px 0;
     padding: 5px;
     cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.search-button:hover {
+    background-color: #4b0082;
 }
 
 .button-link {
@@ -94,6 +131,11 @@ nav {
 }
 
 /* Scrollbar */
+
+::-webkit-scrollbar-track {
+    background-color: #222;
+}
+
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -125,7 +167,6 @@ nav {
 .image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    margin-top: 50px;
     gap: 10px;
 }
 
