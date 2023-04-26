@@ -42,16 +42,16 @@ main {
     padding: 20px;
     width: 30%;
     color: white;
-    text-transform: uppercase;
 }
 
 .link-container {
     display: flex;
     justify-content: space-around;
+    font-size: 14px;
 }
 
 .link-container a {
-    color: #d33aee;
+    color: #e23eff;
 }
 
 .link-container a:hover {

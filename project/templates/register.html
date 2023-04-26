@@ -9,7 +9,7 @@
             {{ form.hidden_tag() }}
                 <div class="form-group">
                     {{ form.username.label() }}
-                    {{ form.username() }}
+                    {{ form.username(class="userform-input") }}
                     {% if form.username.errors %}
                     <div class="error">
                         {% for error in form.username.errors %}
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     {{ form.email.label() }}
-                    {{ form.email() }}
+                    {{ form.email(class="userform-input") }}
                     {% if form.email.errors %}
                     <div class="error">
                         {% for error in form.email.errors %}
@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     {{ form.password.label() }}
-                    {{ form.password() }}
+                    {{ form.password(class="userform-input") }}
                     {% if form.password.errors %}
                     <div class="error">
                         {% for error in form.password.errors %}
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     {{ form.confirm_password.label() }}
-                    {{ form.confirm_password() }}
+                    {{ form.confirm_password(class="userform-input") }}
                     {% if form.confirm_password.errors %}
                     <div class="error">
                         {% for error in form.confirm_password.errors %}

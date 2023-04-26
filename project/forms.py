@@ -5,10 +5,10 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from project.models import User, Product
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username:', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email:', validators=[DataRequired(), Email()])
-    password = PasswordField('Password:', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password:', validators=[DataRequired(), EqualTo('password')])
+    username = StringField('Username:', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder": "Enter username here.."})
+    email = StringField('Email:', validators=[DataRequired(), Email()], render_kw={"placeholder": "Enter email here.."})
+    password = PasswordField('Password:', validators=[DataRequired()], render_kw={"placeholder": "Enter password here.."})
+    confirm_password = PasswordField('Confirm Password:', validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Confirm password here.."})
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -39,7 +39,7 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
 
 class LoginForm(FlaskForm):
-    email = StringField('Email:', validators=[DataRequired(), Email()])
-    password = PasswordField('Password:', validators=[DataRequired()])
+    email = StringField('Email:', validators=[DataRequired(), Email()], render_kw={"placeholder": "Enter username here.."})
+    password = PasswordField('Password:', validators=[DataRequired()], render_kw={"placeholder": "Enter password here.."})
     remember = BooleanField('Remember Me:')
     submit = SubmitField('Log In')
