@@ -29,7 +29,7 @@ def home():
 def search():
     q = request.args.get('q')
     if q:
-        req = imdb.search(q, tv=False)
+        req = imdb.search(q, year=None, tv=False, person=False)
         result = json.loads(req)
         posters = []
         for item in result['results']:
@@ -40,7 +40,6 @@ def search():
             else:
                 new_url = url
             posters.append(new_url)
-        print(posters)
         print(result['result_count'])
         return render_template('search.html', title=q, result=result, posters=posters)
     else:

@@ -166,7 +166,7 @@ nav {
 /* Search-grid */
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 0.1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
 .image-container {
