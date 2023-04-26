@@ -1,16 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    {% if result['message'] %}
-        <strong style="color: red">{{result['message']}}</strong>
-    {% elif result %}
+    {% if posters %}
     <div class="image-grid">
-        {% for item in result['d'] %}
-            {% if item.get('i') and item['i'].get('imageUrl') and item['i'].get('height') >= item['i'].get('width') %}
+        {% for item in posters %}
             <div class="image-container">
-                <img src="{{ item['i']['imageUrl'] }}" alt="{{ item['l'] }}">
+                <img src="{{ item }}" alt=""}}">
             </div>
-            {% endif %}
         {% endfor %}
     </div>
     {% else %}

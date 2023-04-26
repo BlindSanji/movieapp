@@ -4,9 +4,10 @@ from project.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from project.models import User, Product
 from flask_login import login_user, current_user, logout_user, login_required
 from project.mysecrets import apikey
-import requests
-import json
+from PyMovieDb import IMDB
+import requests, json
 
+imdb = IMDB()
 url = "https://imdb8.p.rapidapi.com/auto-complete"
 
 headers = {
@@ -28,13 +29,22 @@ def home():
 def search():
     q = request.args.get('q')
     if q:
-        response = requests.request("GET", url, headers=headers, params={"q": q})
-        result = response.json()
+        req = imdb.search(q, tv=False)
+        result = json.loads(req)
+        posters = []
+        for item in result['results']:
+            url = item.get('poster')
+            parts = url.split("_")
+            if len(parts) >= 2:
+                new_url = '_'.join([parts[0], parts[-1]])
+            else:
+                new_url = url
+            posters.append(new_url)
+        print(posters)
+        print(result['result_count'])
+        return render_template('search.html', title=q, result=result, posters=posters)
     else:
         return redirect('home')
-
-    return render_template('search.html', title=q, result=result)
-
 
 @app.route("/about")
 def about():
