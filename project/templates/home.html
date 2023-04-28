@@ -1,14 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% if data %}
-        <div class="image-grid">
-            {% for item in data['results'] %}
-                {% if item.get('image') and item['image'].get('url') and item['image'].get('height') >= item['image'].get('width') %}
-                <div class="image-container">
-                    <img src="{{ item['image']['url'] }}" alt="{{ item['l'] }}">
-                </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endif %}
+{% if movie_posters %}
+<section>
+    <h1>Most popular movies</h1>
+    <div class="image-grid">
+        {% for poster in movie_posters %}
+            <div class="image-container">
+                <img src="{{ poster }}" alt="">
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 {% endblock content %}

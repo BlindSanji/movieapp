@@ -5,8 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@300&display=swap" rel="stylesheet">
   {% if title %}
   <title>Imdbflix - {{ title }}</title>
   {% elif search_query %}
@@ -25,19 +28,13 @@
         <a class="nav-link" href="{{ url_for('about') }}">About</a>
         <div class="search-container">
           <form class="search-form" method="GET" action="{{ url_for('search' ) }}">
-            <input type="text" name="q" class="search-input" placeholder="Search.." >
+            <input type="text" name="q" class="search-input" placeholder="Search..">
             <button type="submit" class="search-button">
               <span class="material-symbols-outlined">
                 search
               </span>
             </button>
           </form>
-        </div>
-        <div class="filter-container nav-link">
-          Filter
-          <span class="material-symbols-outlined" id="filter-icon">
-            expand_more
-          </span>
         </div>
       </div>
       <div class="right-nav">
@@ -52,19 +49,25 @@
     </nav>
   </header>
   <main>
-    <div>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-      {% for category, message in messages %}
+    <div class="main-content-wrapper">
       <div>
-        {{ message }}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div>
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
       </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
       {% block content %}{% endblock %}
+    </div>
+    <div class="main-side-wrapper">
+      <h1>Side</h1>
     </div>
   </main>
   <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
+
 </html>

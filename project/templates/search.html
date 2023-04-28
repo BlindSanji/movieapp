@@ -1,15 +1,15 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    {% if posters %}
-    <div class="image-grid">
-        {% for item in posters %}
-            <div class="image-container">
-                <img src="{{ item }}" alt=""}}">
-            </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <p>No results found.</p>
+{% if posters %}
+<div class="image-grid">
+{% for result, poster in my_zip(results, posters) %}
+    {% if poster %}
+        <div class="image-container">
+            <img src="{{ poster }}" alt="">
+        </div>
     {% endif %}
+{% endfor %}
+</div>
+{% endif %}
 {% endblock %}

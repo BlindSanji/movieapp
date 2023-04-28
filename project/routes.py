@@ -4,46 +4,52 @@ from project.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from project.models import User, Product
 from flask_login import login_user, current_user, logout_user, login_required
 from project.mysecrets import apikey
-from PyMovieDb import IMDB
-import requests, json
+import imdb
+from builtins import zip
 
-imdb = IMDB()
-url = "https://imdb8.p.rapidapi.com/auto-complete"
+my_zip = zip
 
-headers = {
-    "X-RapidAPI-Key": apikey,
-    "X-RapidAPI-Host": "imdb8.p.rapidapi.com"
-}
-
+ia = imdb.Cinemagoer()
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    with open('backup.json', 'r') as f:
-        data = json.load(f)
+    popular_movies = ia.get_popular100_movies()
+    movie_posters = []
 
-    return render_template('home.html', title="Home", data=data)
+    for movie in popular_movies[:5]:
+        id = movie.getID()
+        res = ia.get_movie(id)
+        if res.get('cover url'):
+            movie_posters.append(res['full-size cover url'])
+        else:
+            movie_posters.append(None)
+
+        
+    return render_template('home.html', title="Home", popular_movies=popular_movies, movie_posters=movie_posters, my_zip=my_zip)
 
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     q = request.args.get('q')
+    
     if q:
-        req = imdb.search(q, year=None, tv=False, person=False)
-        result = json.loads(req)
-        posters = []
-        for item in result['results']:
-            url = item.get('poster')
-            parts = url.split("_")
-            if len(parts) >= 2:
-                new_url = '_'.join([parts[0], parts[-1]])
+        results = ia.search_movie(q, results=10)
+        movie_posters = []
+        for movie in results:
+            if movie.has_key('cover url'):
+                url = movie['cover url']
+                start = url.index('_')
+                end = url.rindex('_')
+                new_url = url[:start] + url[end+1:]
+                movie_posters.append(new_url)
             else:
-                new_url = url
-            posters.append(new_url)
-        print(result['result_count'])
-        return render_template('search.html', title=q, result=result, posters=posters)
-    else:
-        return redirect('home')
+                movie_posters.append(None)
+        return render_template('search.html', results=results, posters=movie_posters, my_zip=my_zip)
+
+    return redirect('home')
+
+
 
 @app.route("/about")
 def about():
