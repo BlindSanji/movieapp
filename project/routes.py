@@ -20,14 +20,9 @@ def home():
     for movie in popular_movies[:5]:
         id = movie.getID()
         res = ia.get_movie(id)
-        if res.get('cover url'):
-            movie_posters.append(res['full-size cover url'])
-        else:
-            movie_posters.append(None)
+        movie_posters.append(res['full-size cover url'])
 
-        
-    return render_template('home.html', title="Home", popular_movies=popular_movies, movie_posters=movie_posters, my_zip=my_zip)
-
+    return render_template('home.html', movie_posters=movie_posters)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -45,7 +40,7 @@ def search():
                 movie_posters.append(new_url)
             else:
                 movie_posters.append(None)
-        return render_template('search.html', results=results, posters=movie_posters, my_zip=my_zip)
+        return render_template('search.html', results=results, posters=movie_posters, my_zip=my_zip, q=q)
 
     return redirect('home')
 

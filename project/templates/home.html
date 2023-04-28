@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-{% if movie_posters %}
+{% if movies %}
 <section>
     <h1>Most popular movies</h1>
     <div class="image-grid">
-        {% for poster in movie_posters %}
+        {% for movie in movies %}
             <div class="image-container">
-                <img src="{{ poster }}" alt="">
+                <img src="{{ movie['full-size cover url'] }}" alt="">
             </div>
         {% endfor %}
     </div>
