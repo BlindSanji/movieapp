@@ -34,7 +34,7 @@ def search():
 
     if q:
         try:
-            results = ia.search_movie(q, results=10)
+            results = ia.search_movie(q, results=20)
             movie_posters = []
             for movie in results:
                 if movie.has_key('cover url'):
