@@ -18,6 +18,7 @@
   <title>Imdbflix</title>
   {% endif %}
   {% block head %}{% endblock %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
         <div class="search-container">
           <form class="search-form" method="GET" action="{{ url_for('search' ) }}">
             {% if q %}
-            <input type="text" name="q" class="search-input" placeholder="Search.." value="{{ q }}">
+            <input type="text" name="q" class="search-input" placeholder="Search.." value={{ q }}>
             {% else %}
             <input type="text" name="q" class="search-input" placeholder="Search..">
             {% endif %}
@@ -54,11 +55,6 @@
     </nav>
   </header>
   <main>
-    <div class="main-side-wrapper">
-      <section>
-        <h1>Categories</h1>
-      </section>
-    </div>
     <div class="main-content-wrapper">
       <div>
         {% with messages = get_flashed_messages(with_categories=true) %}

@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SearchField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from project.models import User, Product
+from project.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username:', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder": "Enter username here.."})

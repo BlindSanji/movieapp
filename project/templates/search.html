@@ -1,18 +1,41 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-{% if posters %}
-<section>
-    <h1>Search results for {{ q }}</h1>
-    <div class="image-grid">
-    {% for result, poster in my_zip(results, posters) %}
-        {% if poster %}
+<div>
+    {% if posters %}
+    <section>
+        <h1>Search results for {{ q }}</h1>
+        <div class="image-grid">
+            {% for result, poster in my_zip(results, posters) %}
+            {% if poster %}
             <div class="image-container">
                 <img src="{{ poster }}" alt="">
+                <div class="image-overlay">
+                    <div class="image-overlay-icon">
+                        {% if current_user.is_authenticated %}
+                            {% if result.getID() in current_user.get_likes() %}
+                                <a class="material-symbols-outlined liked"
+                                    href="{{ url_for('delete_like', q=q, movie_id=result.getID()) }}">
+                                    favorite
+                                </a>
+                            {% else %}
+                                <a class="material-symbols-outlined"
+                                    href="{{ url_for('add_like', q=q, movie_id=result.getID(), title=result['title'], image=poster) }}">
+                                    favorite
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        {% endif %}
-    {% endfor %}
-    </div>
-</section>
-{% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <section>
+        <h1>Sorry, no results found..</h1>
+    </section>
+    {% endif %}
+</div>
 {% endblock %}

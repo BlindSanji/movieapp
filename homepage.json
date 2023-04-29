@@ -1,0 +1,56 @@
+{
+    "popular_movies": [
+        {
+            "id": "6718170",
+            "title": "The Super Mario Bros. Movie",
+            "image": "https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5.jpg"
+        },
+        {
+            "id": "13345606",
+            "title": "Evil Dead Rise",
+            "image": "https://m.media-amazon.com/images/M/MV5BMmZiN2VmMjktZDE5OC00ZWRmLWFlMmEtYWViMTY4NjM3ZmNkXkEyXkFqcGdeQXVyMTI2MTc2ODM3.jpg"
+        },
+        {
+            "id": "15767808",
+            "title": "The Last Kingdom: Seven Kings Must Die",
+            "image": "https://m.media-amazon.com/images/M/MV5BOTlmNGE0ZGMtMzdkMC00MjQyLWI1ZjgtZTIxODAyNWJlZDFlXkEyXkFqcGdeQXVyNTQ4ODM2NjM@.jpg"
+        },
+        {
+            "id": "15326988",
+            "title": "Ghosted",
+            "image": "https://m.media-amazon.com/images/M/MV5BNGMzYWZlYmYtNTcyMC00ZGVjLThjN2ItMjY4MjkwN2NlMjYwXkEyXkFqcGdeQXVyOTU0NjY1MDM@.jpg"
+        },
+        {
+            "id": "10366206",
+            "title": "John Wick: Chapter 4",
+            "image": "https://m.media-amazon.com/images/M/MV5BMDExZGMyOTMtMDgyYi00NGIwLWJhMTEtOTdkZGFjNmZiMTEwXkEyXkFqcGdeQXVyMjM4NTM5NDY@.jpg"
+        }
+    ],
+    "popular_tv": [
+        {
+            "id": "8111088",
+            "title": "Popular TV Shows",
+            "image": "https://m.media-amazon.com/images/M/MV5BN2M5YWFjN2YtYzU2YS00NzBlLTgwZWUtYWQzNWFhNDkyYjg3XkEyXkFqcGdeQXVyMDM2NDM2MQ@@.jpg"
+        },
+        {
+            "id": "14403178",
+            "title": "Popular TV Shows",
+            "image": "https://m.media-amazon.com/images/M/MV5BOTNjOGVkYTctYjE1ZS00MTBhLTlkOTAtMGUzODZlNjAxMGM3XkEyXkFqcGdeQXVyNDk3MzMwMTI@.jpg"
+        },
+        {
+            "id": "7660850",
+            "title": "Popular TV Shows",
+            "image": "https://m.media-amazon.com/images/M/MV5BZTY0YjU0NTUtMGRmNS00NDMyLWI2MzYtNjM2MmM1M2FkMjkyXkEyXkFqcGdeQXVyNjY1MTg4Mzc@.jpg"
+        },
+        {
+            "id": "13918776",
+            "title": "Popular TV Shows",
+            "image": "https://m.media-amazon.com/images/M/MV5BODgzYmFkZjAtYjhmNC00NDdkLTk4NGYtNDdiODVlNmE3ODkyXkEyXkFqcGdeQXVyNTE1NjY5Mg@@.jpg"
+        },
+        {
+            "id": "10986410",
+            "title": "Popular TV Shows",
+            "image": "https://m.media-amazon.com/images/M/MV5BMTdmZjBjZjQtY2JiNS00Y2ZlLTg2NzgtMjUzMGY2OTVmOWJiXkEyXkFqcGdeQXVyMDM2NDM2MQ@@.jpg"
+        }
+    ]
+}

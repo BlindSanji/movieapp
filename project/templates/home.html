@@ -1,15 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-{% if movies %}
-<section>
-    <h1>Most popular movies</h1>
-    <div class="image-grid">
-        {% for movie in movies %}
+    {% if data %}
+    <section>
+        <h1>Popular movies</h1>
+        <div class="image-grid">
+            {% for item in data['popular_movies'] %}
             <div class="image-container">
-                <img src="{{ movie['full-size cover url'] }}" alt="">
+                <img src="{{item['image']}}" alt="{{item[title]}}">
             </div>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
+            {% endfor %}
+        </div>  
+    </section>
+    <section>
+        <h1>Popular TV</h1>
+        <div class="image-grid">
+            {% for item in data['popular_tv'] %}
+            <div class="image-container">
+                <img src="{{item['image']}}" alt="{{item[title]}}">
+            </div>
+            {% endfor %}
+        </div>  
+    </section>
+    {% endif %}
 {% endblock content %}

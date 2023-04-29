@@ -1,7 +1,8 @@
 from datetime import datetime
 from project import db, login_manager
 from flask_login import UserMixin
-# import pickle
+from sqlalchemy.types import PickleType
+from sqlalchemy.ext.mutable import MutableDict
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -12,31 +13,35 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    # likes = db.Column(db.PickleType, nullable=False, default=[])
+    likes = db.relationship('Like', backref='user', lazy=True)
+    # watch_later = db.relationship('WatchLater', backref='user', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
-    # def add_likes(self, value):
-    #     likes = self.likes
-    #     likes.append(value)
-    #     self.likes = pickle.dumps(likes)
+    def add_like(self, movie_id, title, image):
+        like = Like(user_id=self.id, movie_id=movie_id, title=title, image=image)
+        self.likes.append(like)
+        db.session.commit()
 
-    # def remove_likes(self, value):
-    #     likes = self.likes
-    #     likes.remove(value)
-    #     self.likes = pickle.dumps(likes)
+    def get_likes(self):
+        return [like.movie_id for like in self.likes]
 
-    # def get_likes_list(self):
-    #     return pickle.loads(self.likes)
-
-
-class Product(db.Model):
+class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    movie_id = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Like('{self.title}')"
+
+# class WatchLater(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     movie_id = db.Column(db.String, nullable=False)
+#     title = db.Column(db.String, nullable=False)
+#     image = db.Column(db.String, nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     def __repr__(self):
+#         return f"WatchLater('{self.title}')"

@@ -1,49 +1,67 @@
 from flask import render_template, url_for, flash, redirect, request
 from project import app, db, bcrypt
 from project.forms import RegistrationForm, LoginForm, UpdateAccountForm
-from project.models import User, Product
+from project.models import User, Like
 from flask_login import login_user, current_user, logout_user, login_required
-from project.mysecrets import apikey
-import imdb
 from builtins import zip
+import imdb, time, json, pickle
 
 my_zip = zip
 
 ia = imdb.Cinemagoer()
 
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    popular_movies = ia.get_popular100_movies()
-    movie_posters = []
+    try:
+        with open('homepage.json', 'r') as f:
+            data = json.load(f)
+    except:
+        flash('Unable to retrieve homepage images')
 
-    for movie in popular_movies[:5]:
-        id = movie.getID()
-        res = ia.get_movie(id)
-        movie_posters.append(res['full-size cover url'])
+    return render_template('home.html', data=data)
 
-    return render_template('home.html', movie_posters=movie_posters)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     q = request.args.get('q')
-    
-    if q:
-        results = ia.search_movie(q, results=10)
-        movie_posters = []
-        for movie in results:
-            if movie.has_key('cover url'):
-                url = movie['cover url']
-                start = url.index('_')
-                end = url.rindex('_')
-                new_url = url[:start] + url[end+1:]
-                movie_posters.append(new_url)
-            else:
-                movie_posters.append(None)
-        return render_template('search.html', results=results, posters=movie_posters, my_zip=my_zip, q=q)
 
+    if q:
+        try:
+            results = ia.search_movie(q, results=10)
+            movie_posters = []
+            for movie in results:
+                if movie.has_key('cover url'):
+                    movie_posters.append(movie['full-size cover url'])
+                else:
+                    movie_posters.append(None)
+            return render_template('search.html', results=results, posters=movie_posters, my_zip=my_zip, q=q)
+        except Exception as e:
+            print(e)
+            flash("Sorry, an error ocurred while processing your request.")
+            return redirect('home')
+    
     return redirect('home')
 
+
+@app.route('/add_like', methods=['GET', 'POST'])
+@login_required
+def add_like():
+    q = request.args.get('q')
+    id = request.args.get('movie_id')
+    title = request.args.get('title')
+    image = request.args.get('image')
+    current_user.add_like(id, title, image)
+    print(current_user.get_likes())
+    return redirect(url_for('search', q=q))
+
+@app.route('/delete-like', methods=['GET', 'POST'])
+@login_required
+def delete_like():
+    id = request.args.get('movie_id')
+    current_user.delete_like(id)
+    return redirect(url_for('likes'))
 
 
 @app.route("/about")
@@ -65,7 +83,7 @@ def register():
                     email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash("Your account has been created! You are now able to log in")
+        flash("Your account has been created!")
         return redirect(url_for("login"))
     return render_template("register.html", title="Register", form=form)
 
@@ -85,11 +103,12 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
             flash("Log in unsuccessful. Please check email and password", "class")
-        return redirect(url_for("home"))
+            return redirect("login")
     return render_template("login.html", title="Login", form=form)
 
 
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect("home")

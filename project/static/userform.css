@@ -6,6 +6,13 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    color: black;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: none;
 }
 
 input[type=submit] {
@@ -26,21 +33,14 @@ input[type=submit]:hover {
     background-color: #230046;
 }
 
-main {
-    margin-top: 0;
-}
-
 .form-container {
     font-family: "Roboto", sans-serif;
     font-weight: 100;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border-radius: 5px;
     background-color: #282828;
     padding: 20px;
-    width: 30%;
+    width: 500px;
+    margin: auto;
     color: white;
 }
 
