@@ -1,7 +1,26 @@
-{% extends "userform-layout.html" %}
+{% extends "layout.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='userform.css') }}">
+{% endblock %}
 {% block content %}
-    <section>
-        <h1>My likes</h1>
+<div class="mypage-wrapper">
+    <div>
+        <h2>Likes</h2>
+        <ul>
+            {% for like in current_user.likes %}
+            <li class="mypage-movies">
+                <a class="mypage-links" href="{{ url_for('movie', movie_id=like.movie_id ) }}">
+                    <img src="{{ like.image }}" alt="{{ like.title }}">
+                    <h3>{{ like.title }}</h3>
+                </a>
+                <a href="{{ url_for('delete_like', id=like.id) }}" class="material-symbols-outlined delete-like">
+                    close
+                </a>
         
-    </section>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a class="button-link account-link" href="{{ url_for('account' ) }}">Edit account information</a>
+</div>
 {% endblock content %}

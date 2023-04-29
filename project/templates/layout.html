@@ -25,11 +25,10 @@
     <nav>
       <div class="left-nav">
         <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-        <a class="nav-link" href="{{ url_for('about') }}">About</a>
         <div class="search-container">
           <form class="search-form" method="GET" action="{{ url_for('search' ) }}">
             {% if q %}
-            <input type="text" name="q" class="search-input" placeholder="Search.." value="{{ q }}">
+            <input type="text" name="q" class="search-input" placeholder="Search.." value={{ q }}>
             {% else %}
             <input type="text" name="q" class="search-input" placeholder="Search..">
             {% endif %}
@@ -44,7 +43,7 @@
       </div>
       <div class="right-nav">
         {% if current_user.is_authenticated %}
-        <a class="nav-link" href="{{ url_for('account') }}">{{ current_user.username }}</a>
+        <a class="nav-link" href="{{ url_for('my_page') }}">{{ current_user.username }}</a>
         <a class="button-link" href="{{ url_for('logout') }}">Log out</a>
         {% else %}
         <a class="nav-link" href="{{ url_for('login') }}">Log in</a>
@@ -54,17 +53,12 @@
     </nav>
   </header>
   <main>
-    <div class="main-side-wrapper">
-      <section>
-        <h1>Categories</h1>
-      </section>
-    </div>
     <div class="main-content-wrapper">
       <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
-        <div>
+        <div class="{% if category == 'success' %}success{% elif category == 'error' %}error{% endif %}">
           {{ message }}
         </div>
         {% endfor %}
@@ -80,17 +74,9 @@
     <div class="footer-grid">
       <div class="footer-section">
         <ul>
-          <li><a href="#">Popular Movies</a></li>
-          <li><a href="#">Top 100 Movies</a></li>
-          <li><a href="#">Popular TV</a></li>
-          <li><a href="#">Top 100 TV</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <ul>
-          <li><a href="#">My Page</a></li>
-          <li><a href="#">Favourites</a></li>
-          <li><a href="#">Watch Later</a></li>
+          <li><a href="{{ url_for('home' ) }}">Home</a></li>
+          <li><a href="{{ url_for('my_page' ) }}">My Page</a></li>
+          <li><a href="{{ url_for('my_page' ) }}">Favourites</a></li>
         </ul>
       </div>
     </div>

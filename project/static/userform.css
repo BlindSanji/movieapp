@@ -57,3 +57,19 @@ input[type=submit]:hover {
 .link-container a:hover {
     color: #842196;
 }
+
+.movie-img-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .movie-img-container img {
+    max-width: 200px;
+    margin-right: 20px;
+  }
+  
+  .movie-img-container h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }

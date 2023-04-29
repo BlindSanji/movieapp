@@ -29,27 +29,27 @@
     "popular_tv": [
         {
             "id": "8111088",
-            "title": "Popular TV Shows",
+            "title": "The Mandalorian",
             "image": "https://m.media-amazon.com/images/M/MV5BN2M5YWFjN2YtYzU2YS00NzBlLTgwZWUtYWQzNWFhNDkyYjg3XkEyXkFqcGdeQXVyMDM2NDM2MQ@@.jpg"
         },
         {
             "id": "14403178",
-            "title": "Popular TV Shows",
+            "title": "Beef",
             "image": "https://m.media-amazon.com/images/M/MV5BOTNjOGVkYTctYjE1ZS00MTBhLTlkOTAtMGUzODZlNjAxMGM3XkEyXkFqcGdeQXVyNDk3MzMwMTI@.jpg"
         },
         {
             "id": "7660850",
-            "title": "Popular TV Shows",
+            "title": "Succession",
             "image": "https://m.media-amazon.com/images/M/MV5BZTY0YjU0NTUtMGRmNS00NDMyLWI2MzYtNjM2MmM1M2FkMjkyXkEyXkFqcGdeQXVyNjY1MTg4Mzc@.jpg"
         },
         {
             "id": "13918776",
-            "title": "Popular TV Shows",
+            "title": "The Night Agent",
             "image": "https://m.media-amazon.com/images/M/MV5BODgzYmFkZjAtYjhmNC00NDdkLTk4NGYtNDdiODVlNmE3ODkyXkEyXkFqcGdeQXVyNTE1NjY5Mg@@.jpg"
         },
         {
             "id": "10986410",
-            "title": "Popular TV Shows",
+            "title": "Ted Lasso",
             "image": "https://m.media-amazon.com/images/M/MV5BMTdmZjBjZjQtY2JiNS00Y2ZlLTg2NzgtMjUzMGY2OTVmOWJiXkEyXkFqcGdeQXVyMDM2NDM2MQ@@.jpg"
         }
     ]

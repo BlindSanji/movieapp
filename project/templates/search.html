@@ -1,41 +1,41 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+{% if results %}
 <div>
-    {% if posters %}
-    <section>
-        <h1>Search results for {{ q }}</h1>
-        <div class="image-grid">
-            {% for result, poster in my_zip(results, posters) %}
-            {% if poster %}
-            <div class="image-container">
-                <img src="{{ poster }}" alt="">
-                <div class="image-overlay">
-                    <div class="image-overlay-icon">
-                        {% if current_user.is_authenticated %}
-                            {% if result.getID() in current_user.get_likes() %}
-                                <a class="material-symbols-outlined liked"
-                                    href="{{ url_for('delete_like', q=q, movie_id=result.getID()) }}">
-                                    favorite
-                                </a>
-                            {% else %}
-                                <a class="material-symbols-outlined"
-                                    href="{{ url_for('add_like', q=q, movie_id=result.getID(), title=result['title'], image=poster) }}">
-                                    favorite
-                                </a>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
+<section>
+    <h1>Search results for {{ q }}</h1>
+    <div class="image-grid">
+        {% for result, poster in my_zip(results, posters) %}
+        {% if poster %}
+        <div id="id=result.getID()" class="image-container">
+            <a href="{{ url_for('movie', movie_id=result.getID() ) }}">
+                <img href="" src="{{ poster }}" alt="">
+            </a>
+            <div class="image-overlay-icon">
+                {% if current_user.is_authenticated and result.getID() in current_user.get_likes() %}
+                <a class="material-symbols-outlined like-icon liked"
+                    href="{{ url_for('delete_like', q=q, movie_id=result.getID()) }}">
+                    favorite
+                </a>
+                {% else %}
+                <a class="material-symbols-outlined like-icon"
+                    href="{{ url_for('add_like', q=q, movie_id=result.getID(), title=result['title'], image=poster) }}">
+                    favorite
+                </a>
+                {% endif %}
             </div>
-            {% endif %}
-            {% endfor %}
+            <a class="title-link" href="{{ url_for('movie', movie_id=result.getID() ) }}">{{result['title']}}</a>
         </div>
-    </section>
-    {% else %}
-    <section>
-        <h1>Sorry, no results found..</h1>
-    </section>
-    {% endif %}
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+</div>
+{% else %}
+<section>
+    <h1>Sorry, no results found..</h1>
+</section>
+{% endif %}
 </div>
 {% endblock %}

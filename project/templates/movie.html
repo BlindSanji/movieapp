@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='userform.css') }}">
+{% endblock %}
+{% block content %}
+<div class="movie-img-container">
+    <img src="{{ movie['full-size cover url'] }}" alt="{{ movie['title'] }}">
+    <div>
+        <h3>{{movie['title']}}. Rating ({{movie['rating']}})</h3>
+        <p>{{movie['plot outline']}}</p>
+    </div>
+</div>
+{% endblock content %}

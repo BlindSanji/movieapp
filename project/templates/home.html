@@ -1,25 +1,57 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% if data %}
-    <section>
-        <h1>Popular movies</h1>
-        <div class="image-grid">
-            {% for item in data['popular_movies'] %}
-            <div class="image-container">
+{% if data %}
+<section>
+    <h1>Popular movies</h1>
+    <div class="image-grid">
+        {% for item in data['popular_movies'] %}
+        <div class="image-container" id="{{item['id']}}">
+            <a href="{{ url_for('movie', movie_id=item['id'] ) }}">
                 <img src="{{item['image']}}" alt="{{item[title]}}">
+            </a>
+            <div class="image-overlay-icon">
+                {% if current_user.is_authenticated and item['id'] in current_user.get_likes() %}
+                <a class="material-symbols-outlined like-icon liked"
+                    href="{{ url_for('delete_like', q=q, movie_id=item['id']) }}">
+                    favorite
+                </a>
+                {% else %}
+                <a class="material-symbols-outlined like-icon"
+                    href="{{ url_for('add_like', q=q, movie_id=item['id'], title=item['title'], image=item['image']) }}">
+                    favorite
+                </a>
+                {% endif %}
             </div>
-            {% endfor %}
-        </div>  
-    </section>
-    <section>
-        <h1>Popular TV</h1>
-        <div class="image-grid">
-            {% for item in data['popular_tv'] %}
-            <div class="image-container">
+            <a class="title-link" href="{{ url_for('movie', movie_id=item['id'] ) }}">{{item['title']}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<section>
+    <h1>Popular TV</h1>
+    <div class="image-grid">
+        {% for item in data['popular_tv'] %}
+        <div class="image-container" id="{{item['id']}}">
+            <a href="{{ url_for('movie', movie_id=item['id'] ) }}">
                 <img src="{{item['image']}}" alt="{{item[title]}}">
+            </a>
+            <div class="image-overlay-icon">
+                {% if current_user.is_authenticated and item['id'] in current_user.get_likes() %}
+                <a class="material-symbols-outlined like-icon liked"
+                    href="{{ url_for('delete_like', q=q, movie_id=item['id']) }}">
+                    favorite
+                </a>
+                {% else %}
+                <a class="material-symbols-outlined like-icon"
+                    href="{{ url_for('add_like', q=q, movie_id=item['id'], title=item['title'], image=item['image']) }}">
+                    favorite
+                </a>
+                {% endif %}
             </div>
-            {% endfor %}
-        </div>  
-    </section>
-    {% endif %}
+            <a class="title-link" href="{{ url_for('movie', movie_id=item['id'] ) }}">{{item['title']}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 {% endblock content %}
