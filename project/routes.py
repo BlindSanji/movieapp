@@ -106,7 +106,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         # Sjekker om det bcrypta passordet matcher med innholdet i form.
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
+            login_user(user)
             # For å redirecte til siden man hadde lyst å komme inn på, men ikke hadde tillatelse pga ikke logget inn.
             next_page = request.args.get("next")
             flash(f'Logged in as {current_user.username}!', 'success')
