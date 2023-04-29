@@ -1,26 +1,28 @@
 # movieapp
 
-Once downloaded create a virtual enviorement in the folder:
-    py -m venv venv
+Når du har lastet ned filene, opprett et virtuelt miljø i mappen:
 
-Iniziate it the venv:
+py -m venv venv
 
-cmd:
-    venv\Scripts\activate.bat
+Aktiver det virtuelle miljøet:
+
+Kommandovindu:
+venv\Scripts\activate.bat
 
 Powershell:
-    venv\Scripts\activate.ps1
-    
-Then download requirements:
-    pip install -r requirements.txt
-    
-Now you can run the run.py file!
-    
-If you want to delete the database and start with a clean database type this in terminal:
-    py
-    from project import db, app
-    from project.models import User, Like
-    with app_context().push()
+venv\Scripts\Activate.ps1
+
+Deretter last ned kravene:
+
+pip install -r requirements.txt
+
+Nå kan du kjøre run.py-filen!
+
+Hvis du vil slette databasen og starte med en ren database, skriv dette i terminalen:
+
+py
+from project import db, app
+from project.models import User, Like
+with app.app_context().push():
     db.drop_all()
     db.create_all()
-    
