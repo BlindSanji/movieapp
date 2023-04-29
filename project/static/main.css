@@ -303,6 +303,7 @@ footer ul li a:hover {
 .mypage-wrapper {
     display: flex;
     flex-direction: column;
+    color: white;
 }
 
 .mypage-wrapper:last-child {
