@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "579168bb0b13ce0c676dfde80ba45"
+app.config["SECRET_KEY"] = "Secret-key"
 
 # Setter sqlite som database og kaller filen project.db
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
