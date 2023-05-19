@@ -3,13 +3,10 @@ from project import app, db, bcrypt
 from project.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from project.models import User, Like
 from flask_login import login_user, current_user, logout_user, login_required
-from builtins import zip
 import imdb, time, json, pickle
 
 
 # Setter viktige variabler som zip setter flere iterable objekter sammen og hvor jeg henter filmer fra.
-my_zip = zip
-
 ia = imdb.Cinemagoer()
 
 
@@ -41,7 +38,7 @@ def search():
                     movie_posters.append(movie['full-size cover url'])
                 else:
                     movie_posters.append(None)
-            return render_template('search.html', results=results, posters=movie_posters, my_zip=my_zip, q=q)
+            return render_template('search.html', results=results, q=q)
         except Exception as e:
             print(e)
             flash("Sorry, an error ocurred while processing your request.", 'error')
