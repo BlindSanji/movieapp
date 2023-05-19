@@ -6,26 +6,26 @@
 <section>
     <h1>Search results for {{ q }}</h1>
     <div class="image-grid">
-        {% for result, poster in my_zip(results, posters) %}
-        {% if poster %}
-        <div id="id=result.getID()" class="image-container">
-            <a href="{{ url_for('movie', movie_id=result.getID() ) }}">
-                <img href="" src="{{ poster }}" alt="">
+        {% for movie in results %}
+        {% if movie %}
+        <div id="id=movie.getID()" class="image-container">
+            <a href="{{ url_for('movie', movie_id=movie.getID() ) }}">
+                <img href="" src="{{ movie['full-size cover url'] }}" alt="">
             </a>
             <div class="image-overlay-icon">
-                {% if current_user.is_authenticated and result.getID() in current_user.get_likes() %}
+                {% if current_user.is_authenticated and movie.getID() in current_user.get_likes() %}
                 <a class="material-symbols-outlined like-icon liked"
-                    href="{{ url_for('delete_like', q=q, movie_id=result.getID()) }}">
+                    href="{{ url_for('delete_like', q=q, movie_id=movie.getID()) }}">
                     favorite
                 </a>
                 {% else %}
                 <a class="material-symbols-outlined like-icon"
-                    href="{{ url_for('add_like', q=q, movie_id=result.getID(), title=result['title'], image=poster) }}">
+                    href="{{ url_for('add_like', q=q, movie_id=movie.getID(), title=movie['title'], image=movie['full-size cover url']) }}">
                     favorite
                 </a>
                 {% endif %}
             </div>
-            <a class="title-link" href="{{ url_for('movie', movie_id=result.getID() ) }}">{{result['title']}}</a>
+            <a class="title-link" href="{{ url_for('movie', movie_id=movie.getID() ) }}">{{movie['title']}}</a>
         </div>
         {% endif %}
         {% endfor %}
