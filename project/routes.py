@@ -32,12 +32,6 @@ def search():
     if q:
         try:
             results = ia.search_movie(q, results=20)
-            movie_posters = []
-            for movie in results:
-                if movie.has_key('cover url'):
-                    movie_posters.append(movie['full-size cover url'])
-                else:
-                    movie_posters.append(None)
             return render_template('search.html', results=results, q=q)
         except Exception as e:
             print(e)
